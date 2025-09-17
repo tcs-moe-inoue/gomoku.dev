@@ -30,7 +30,7 @@ export default function Board() {
 
   return (
     <div className="board">
-      <div classname="status">{status}</div>
+      <div className="status">{status}</div>
 
       {[0, 1, 2].map(row => (
         <div key={row} className="board-row">
