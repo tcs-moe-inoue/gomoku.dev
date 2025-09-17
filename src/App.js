@@ -13,10 +13,13 @@ export default function Board() {
   const [squares, setSquares] = useState(Array(9).fill(null));
 
   const winner = calculateWinner(squares);
+  const isDraw = squares.every(square => square !== null) && !winner;
 
   const status = winner
     ? `Winner: ${winner}`
-    : `Next player: ${currentPlayer}`;
+    : isDraw
+      ? "Draw"
+      : `Next player: ${currentPlayer}`;
 
   function handleClick(i) {
     if (squares[i] || winner){
