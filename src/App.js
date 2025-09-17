@@ -19,7 +19,7 @@ export default function Board() {
     : `Next player: ${currentPlayer}`;
 
   function handleClick(i) {
-    if (squares[i] || calculateWinner(squares)){
+    if (squares[i] || winner){
       return;
     } 
     const nextSquares = squares.slice();
