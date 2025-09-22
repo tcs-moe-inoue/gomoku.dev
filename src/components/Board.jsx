@@ -4,14 +4,15 @@ import { calculateWinner } from '../utils/calculateWinner';
 
 const BOARD_WIDTH = 3;
 const BOARD_HEIGHT = 3;
-const BOARD_SIZE = BOARD_WIDTH * BOARD_HEIGHT;
 
 export default function Board() {
   const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [squares, setSquares] = useState(Array(BOARD_SIZE).fill(null));
+  const [squares, setSquares] = useState(
+    Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null))
+  );
 
   const winner = calculateWinner(squares, BOARD_WIDTH, BOARD_HEIGHT);
-  const isDraw = squares.every(square => square !== null) && !winner;
+  const isDraw = squares.flat().every(square => square !== null) && !winner;
 
   const status = winner
     ? `Winner: ${winner}`
@@ -19,31 +20,27 @@ export default function Board() {
       ? "Draw"
       : `Next player: ${currentPlayer}`;
 
-  function handleClick(i) {
-    if (squares[i] || winner) return;
+  function handleClick(row, col) {
+    if (squares[row][col] || winner) return;
     
-    const nextSquares = squares.slice();
-    nextSquares[i] = currentPlayer;
+    const nextSquares = squares.map((r, rowIndex) =>
+      rowIndex === row ? [...r] : [...r]
+    );
+      nextSquares[row][col] = currentPlayer;
     setSquares(nextSquares);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   }
 
-   function renderRow(row) {
-    const start = row * BOARD_WIDTH;
-    const rowSquares = squares.slice(start, start + BOARD_WIDTH);
-
+  function renderRow(rowIndex) {
     return (
-      <div key={row} className="board-row">
-        {rowSquares.map((value, col) => {
-          const index = start + col;
-          return (
-            <Square
-              key={`square-${row}-${col}`}
-              value={value}
-              onSquareClick={() => handleClick(index)}
-            />
-          );
-        })}
+      <div key={rowIndex} className="board-row">
+        {squares[rowIndex].map((value, colIndex) => (
+          <Square
+            key={`square-${rowIndex}-${colIndex}`}
+            value={value}
+            onSquareClick={() => handleClick(rowIndex, colIndex)}
+          />
+        ))}
       </div>
     );
   }
