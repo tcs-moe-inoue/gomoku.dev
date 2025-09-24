@@ -1,18 +1,18 @@
-import { useState } from 'react';
-import Square from './Square';
-import { calculateWinner } from '../utils/calculateWinner';
+import { useState } from "react";
+import Square from "./Square";
+import { calculateWinner } from "../utils/calculateWinner";
 
 const BOARD_WIDTH = 6;
-const BOARD_HEIGHT = 3;
+const BOARD_HEIGHT = 4;
 
 export default function Board() {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [squares, setSquares] = useState(
-    Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null))
+    Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null)),
   );
 
   const winner = calculateWinner(squares, BOARD_WIDTH, BOARD_HEIGHT);
-  const isDraw = squares.flat().every(square => square !== null) && !winner;
+  const isDraw = squares.flat().every((square) => square !== null) && !winner;
 
   const status = winner
     ? `Winner: ${winner}`
@@ -22,11 +22,11 @@ export default function Board() {
 
   function handleClick(row, col) {
     if (squares[row][col] || winner) return;
-    
+
     const nextSquares = squares.map((r, rowIndex) =>
-      rowIndex === row ? [...r] : [...r]
+      rowIndex === row ? [...r] : [...r],
     );
-      nextSquares[row][col] = currentPlayer;
+    nextSquares[row][col] = currentPlayer;
     setSquares(nextSquares);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   }

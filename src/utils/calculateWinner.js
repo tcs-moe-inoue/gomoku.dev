@@ -12,8 +12,8 @@ export function calculateWinner(squares, width, height) {
   const lines = [];
 
   const horizontalWinLength = width;
-  const verticalWinLength = height;  
-  const diagonalWinLength = Math.min(width, height); 
+  const verticalWinLength = height;
+  const diagonalWinLength = Math.min(width, height);
 
   for (let row = 0; row < height; row++) {
     for (let col = 0; col <= width - horizontalWinLength; col++) {
@@ -32,7 +32,7 @@ export function calculateWinner(squares, width, height) {
       lines.push(generateLine(row, col, 1, 1, diagonalWinLength));
     }
   }
-  
+
   for (let row = 0; row <= height - diagonalWinLength; row++) {
     for (let col = diagonalWinLength - 1; col < width; col++) {
       lines.push(generateLine(row, col, 1, -1, diagonalWinLength));
