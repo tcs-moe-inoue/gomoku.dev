@@ -8,7 +8,7 @@ function generateLine(startRow, startCol, deltaRow, deltaCol, winLength) {
   return line;
 }
 
-export function calculateWinner(squares, width, height, winLength = 3) {
+export function calculateWinner(squares, width, height, winLength) {
   const lines = [];
 
   for (let row = 0; row < height; row++) {
