@@ -3,8 +3,7 @@ import Square from './Square';
 import { calculateWinner } from '../utils/calculateWinner';
 
 const BOARD_WIDTH = 6;
-const BOARD_HEIGHT = 6;
-const winLength = BOARD_WIDTH;
+const BOARD_HEIGHT = 3;
 
 export default function Board() {
   const [currentPlayer, setCurrentPlayer] = useState("X");
@@ -12,7 +11,7 @@ export default function Board() {
     Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null))
   );
 
-  const winner = calculateWinner(squares, BOARD_WIDTH, BOARD_HEIGHT, winLength);
+  const winner = calculateWinner(squares, BOARD_WIDTH, BOARD_HEIGHT);
   const isDraw = squares.flat().every(square => square !== null) && !winner;
 
   const status = winner

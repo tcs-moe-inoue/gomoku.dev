@@ -8,30 +8,34 @@ function generateLine(startRow, startCol, deltaRow, deltaCol, winLength) {
   return line;
 }
 
-export function calculateWinner(squares, width, height, winLength) {
+export function calculateWinner(squares, width, height) {
   const lines = [];
 
+  const horizontalWinLength = width;
+  const verticalWinLength = height;  
+  const diagonalWinLength = Math.min(width, height); 
+
   for (let row = 0; row < height; row++) {
-    for (let col = 0; col <= width - winLength; col++) {
-      lines.push(generateLine(row, col, 0, 1, winLength));
+    for (let col = 0; col <= width - horizontalWinLength; col++) {
+      lines.push(generateLine(row, col, 0, 1, horizontalWinLength));
     }
   }
 
   for (let col = 0; col < width; col++) {
-    for (let row = 0; row <= height - winLength; row++) {
-      lines.push(generateLine(row, col, 1, 0, winLength));
+    for (let row = 0; row <= height - verticalWinLength; row++) {
+      lines.push(generateLine(row, col, 1, 0, verticalWinLength));
     }
   }
 
-  for (let row = 0; row <= height - winLength; row++) {
-    for (let col = 0; col <= width - winLength; col++) {
-      lines.push(generateLine(row, col, 1, 1, winLength));
+  for (let row = 0; row <= height - diagonalWinLength; row++) {
+    for (let col = 0; col <= width - diagonalWinLength; col++) {
+      lines.push(generateLine(row, col, 1, 1, diagonalWinLength));
     }
   }
   
-  for (let row = 0; row <= height - winLength; row++) {
-    for (let col = winLength - 1; col < width; col++) {
-      lines.push(generateLine(row, col, 1, -1, winLength));
+  for (let row = 0; row <= height - diagonalWinLength; row++) {
+    for (let col = diagonalWinLength - 1; col < width; col++) {
+      lines.push(generateLine(row, col, 1, -1, diagonalWinLength));
     }
   }
 
