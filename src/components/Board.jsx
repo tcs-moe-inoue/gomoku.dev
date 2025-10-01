@@ -29,7 +29,7 @@ export default function Board() {
   function handleClick(row, col) {
     if (squares[row][col] || winner) return;
 
-    const nextSquares = squares.map((r) => [...r]);
+    const nextSquares = squares.map((boardRow) => [...boardRow]);
     nextSquares[row][col] = currentPlayer;
     setSquares(nextSquares);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
