@@ -1,3 +1,5 @@
+import './SizeSelector.css';
+
 export default function SizeSelector({ width, height, sizeOptions, onSizeChange }) {
   const parseValue = (e) => parseInt(e.target.value, 10);
 

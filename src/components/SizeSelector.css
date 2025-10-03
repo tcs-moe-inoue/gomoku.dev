@@ -1,0 +1,28 @@
+.controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap; 
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.75rem;
+  color: #333;
+}
+
+.controls select {
+  margin-top: 4px;
+  padding: 4px 5px;
+  font-size: 0.8rem;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  background-color: white;
+  transition: border 0.2s ease;
+}
+
+.controls select:focus {
+  border-color: #007bff;
+  outline: none;
+}
