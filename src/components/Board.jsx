@@ -35,11 +35,19 @@ export default function Board() {
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   }
 
-  function handleSizeChange(newWidth, newHeight) {
-    setWidth(newWidth);
-    setHeight(newHeight);
+  function resetGame(newWidth, newHeight) {
     setCurrentPlayer("X");
     setSquares(createEmptyBoard(newWidth, newHeight));
+  }
+
+  function handleWidthChange(newWidth) {
+    setWidth(newWidth);
+    resetGame(newWidth, height);
+  }
+
+  function handleHeightChange(newHeight) {
+    setHeight(newHeight);
+    resetGame(width, newHeight);
   }
 
   function renderRow(rowIndex) {
@@ -58,7 +66,7 @@ export default function Board() {
 
   return (
     <div className="board-container">
-      <SizeSelector width={width} height={height} sizeOptions={sizeOptions} onSizeChange={handleSizeChange} />
+      <SizeSelector width={width} height={height} sizeOptions={sizeOptions} onWidthChange={handleWidthChange} onHeightChange={handleHeightChange}/>
 
       <div className="status">{status}</div>
 

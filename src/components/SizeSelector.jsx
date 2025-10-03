@@ -1,16 +1,14 @@
 import './SizeSelector.css';
 
-export default function SizeSelector({ width, height, sizeOptions, onSizeChange }) {
+export default function SizeSelector({ width, height, sizeOptions, onWidthChange, onHeightChange }) {
   const parseValue = (e) => parseInt(e.target.value, 10);
 
   const handleWidthChange = (e) => {
-    const newWidth = parseValue(e);
-    onSizeChange(newWidth, height);
+  onWidthChange(parseValue(e));
   };
 
   const handleHeightChange = (e) => {
-    const newHeight = parseValue(e);
-    onSizeChange(width, newHeight);
+  onHeightChange(parseValue(e));
   };
 
   const renderSelect = (label, value, onChange, keyPrefix) => (
