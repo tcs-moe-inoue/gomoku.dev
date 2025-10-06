@@ -50,6 +50,11 @@ export default function Board() {
     resetGame(width, newHeight);
   }
 
+  const layoutOptions = [
+    { value: width, options: sizeOptions, onChange: handleWidthChange, label: "Width", keyPrefix: "w", },
+    { value: height, options: sizeOptions, onChange: handleHeightChange, label: "Height", keyPrefix: "h",},
+  ];
+
   function renderRow(rowIndex) {
     return (
       <div key={rowIndex} className="board-row">
@@ -66,7 +71,7 @@ export default function Board() {
 
   return (
     <div className="board-container">
-      <SizeSelector width={width} height={height} sizeOptions={sizeOptions} onWidthChange={handleWidthChange} onHeightChange={handleHeightChange}/>
+      <SizeSelector layoutOptions={layoutOptions}/>
 
       <div className="status">{status}</div>
 
