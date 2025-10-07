@@ -70,7 +70,7 @@ export default function Board() {
   }
 
   return (
-    <div className="board-container">
+    <div>
       <SizeSelector layoutOptions={layoutOptions}/>
 
       <div className="status">{status}</div>
