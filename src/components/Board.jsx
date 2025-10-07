@@ -75,7 +75,7 @@ export default function Board() {
 
       <div className="status">{status}</div>
 
-      <div className="board">{Array.from({ length: height }, (_, row) => renderRow(row))}</div>
+      <div>{Array.from({ length: height }, (_, row) => renderRow(row))}</div>
     </div>
   );
 }
