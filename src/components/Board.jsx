@@ -1,17 +1,26 @@
 import { useState } from "react";
 import Square from "./Square";
+import SizeSelector from "./SizeSelector";
 import { calculateWinner } from "../utils/calculateWinner";
 
-const BOARD_WIDTH = 6;
-const BOARD_HEIGHT = 4;
+const MIN_SIZE = 3;
+const MAX_SIZE = 10;
+
+function createEmptyBoard(width, height) {
+  return Array.from({ length: height }, () => Array(width).fill(null));
+}
 
 export default function Board() {
+  const [width, setWidth] = useState(MIN_SIZE);
+  const [height, setHeight] = useState(MIN_SIZE);
   const [currentPlayer, setCurrentPlayer] = useState("X");
-  const [squares, setSquares] = useState(
-    Array.from({ length: BOARD_HEIGHT }, () => Array(BOARD_WIDTH).fill(null)),
-  );
+  const [squares, setSquares] = useState(createEmptyBoard(MIN_SIZE, MIN_SIZE));
 
-  const winner = calculateWinner(squares, BOARD_WIDTH, BOARD_HEIGHT);
+  const sizeOptions = Array.from(
+    { length: MAX_SIZE - MIN_SIZE + 1 },
+    (_, i) => MIN_SIZE + i,
+  );
+  const winner = calculateWinner(squares, width, height);
   const isDraw = squares.flat().every((square) => square !== null) && !winner;
 
   const status = winner
@@ -23,11 +32,43 @@ export default function Board() {
   function handleClick(row, col) {
     if (squares[row][col] || winner) return;
 
-    const nextSquares = squares.map((r) => [...r]);
+    const nextSquares = squares.map((boardRow) => [...boardRow]);
     nextSquares[row][col] = currentPlayer;
     setSquares(nextSquares);
     setCurrentPlayer(currentPlayer === "X" ? "O" : "X");
   }
+
+  function resetGame(newWidth, newHeight) {
+    setCurrentPlayer("X");
+    setSquares(createEmptyBoard(newWidth, newHeight));
+  }
+
+  function handleWidthChange(newWidth) {
+    setWidth(newWidth);
+    resetGame(newWidth, height);
+  }
+
+  function handleHeightChange(newHeight) {
+    setHeight(newHeight);
+    resetGame(width, newHeight);
+  }
+
+  const layoutOptions = [
+    {
+      value: width,
+      options: sizeOptions,
+      onChange: handleWidthChange,
+      label: "Width",
+      keyPrefix: "w",
+    },
+    {
+      value: height,
+      options: sizeOptions,
+      onChange: handleHeightChange,
+      label: "Height",
+      keyPrefix: "h",
+    },
+  ];
 
   function renderRow(rowIndex) {
     return (
@@ -44,9 +85,12 @@ export default function Board() {
   }
 
   return (
-    <div className="board">
+    <div>
+      <SizeSelector layoutOptions={layoutOptions} />
+
       <div className="status">{status}</div>
-      {Array.from({ length: BOARD_HEIGHT }, (_, row) => renderRow(row))}
+
+      <div>{Array.from({ length: height }, (_, row) => renderRow(row))}</div>
     </div>
   );
 }
