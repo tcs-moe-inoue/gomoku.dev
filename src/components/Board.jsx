@@ -16,7 +16,10 @@ export default function Board() {
   const [currentPlayer, setCurrentPlayer] = useState("X");
   const [squares, setSquares] = useState(createEmptyBoard(MIN_SIZE, MIN_SIZE));
 
-  const sizeOptions = Array.from({ length: MAX_SIZE - MIN_SIZE + 1 }, (_, i) => MIN_SIZE + i);
+  const sizeOptions = Array.from(
+    { length: MAX_SIZE - MIN_SIZE + 1 },
+    (_, i) => MIN_SIZE + i,
+  );
   const winner = calculateWinner(squares, width, height);
   const isDraw = squares.flat().every((square) => square !== null) && !winner;
 
@@ -51,8 +54,20 @@ export default function Board() {
   }
 
   const layoutOptions = [
-    { value: width, options: sizeOptions, onChange: handleWidthChange, label: "Width", keyPrefix: "w", },
-    { value: height, options: sizeOptions, onChange: handleHeightChange, label: "Height", keyPrefix: "h",},
+    {
+      value: width,
+      options: sizeOptions,
+      onChange: handleWidthChange,
+      label: "Width",
+      keyPrefix: "w",
+    },
+    {
+      value: height,
+      options: sizeOptions,
+      onChange: handleHeightChange,
+      label: "Height",
+      keyPrefix: "h",
+    },
   ];
 
   function renderRow(rowIndex) {
@@ -71,7 +86,7 @@ export default function Board() {
 
   return (
     <div>
-      <SizeSelector layoutOptions={layoutOptions}/>
+      <SizeSelector layoutOptions={layoutOptions} />
 
       <div className="status">{status}</div>
 
