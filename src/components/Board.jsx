@@ -91,6 +91,8 @@ export default function Board() {
       <div className="status">{status}</div>
 
       <div>{Array.from({ length: height }, (_, row) => renderRow(row))}</div>
+
+      <button className="reset-button" onClick={() => resetGame(width, height)}>Reset Game</button>
     </div>
   );
 }
